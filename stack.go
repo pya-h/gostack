@@ -53,10 +53,17 @@ func main() {
 	// push test
 	stack.Push("whatever")
 	stack.Push(20, 30, 4.5, -3+4i, 23.65)
+
+	// popout test
+	fmt.Println(stack.PopOut())
+
+	// object push
+	s := NewStack()
+	s.Push(1, 2, 34)
+	stack.Push(s)
+
 	// pop test
 	if v, ok := stack.Pop(); ok {
 		fmt.Println(v)
 	}
-	// popout test
-	fmt.Println(stack.PopOut())
 }
