@@ -18,8 +18,10 @@ type Stack[Type BasicTypes] struct {
 	values []Type
 }
 
-func (stack *Stack[BasicTypes]) Push(value BasicTypes) {
-	stack.values = append(stack.values, value)
+func (stack *Stack[BasicTypes]) Push(values ...BasicTypes) {
+	for _, v := range values {
+		stack.values = append(stack.values, v)
+	}
 }
 
 func NewStack[Type BasicTypes]() Stack[Type] {
@@ -51,7 +53,7 @@ func (stack *Stack[BasicTypes]) PopOut() (all []BasicTypes) {
 func main() {
 	stack := NewStack[complex128]()
 	stack.Push(10)
-	stack.Push(20)
+	stack.Push(20, 30, 4.5, -3+4i)
 
 	fmt.Println(stack.PopOut())
 }
