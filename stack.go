@@ -51,7 +51,7 @@ func (stack *Stack) PopOut() (all []interface{}) {
 func main() {
 	stack := NewStack()
 	// push test
-	stack.Push(10)
+	stack.Push("whatever")
 	stack.Push(20, 30, 4.5, -3+4i, 23.65)
 	// pop test
 	if v, ok := stack.Pop(); ok {
