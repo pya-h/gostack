@@ -4,31 +4,28 @@ import (
 	"fmt"
 )
 
-type BasicTypes interface {
-	int | int8 | int16 | int32 | int64 | uint8 | uint16 | uint32 | uint64 | bool | float32 | float64 | complex64 | complex128 | string
-}
-
 type StackMethods interface {
 	Push()
 	Pop()
 	PopOut()
+	NewStack()
 }
 
-type Stack[Type BasicTypes] struct {
-	values []Type
+type Stack struct {
+	values []interface{}
 }
 
-func (stack *Stack[BasicTypes]) Push(values ...BasicTypes) {
+func (stack *Stack) Push(values ...interface{}) {
 	for _, v := range values {
 		stack.values = append(stack.values, v)
 	}
 }
 
-func NewStack[Type BasicTypes]() Stack[Type] {
-	return Stack[Type]{values: make([]Type, 0, 0)}
+func NewStack() Stack {
+	return Stack{values: make([]interface{}, 0, 0)}
 }
 
-func (stack *Stack[BasicTypes]) Pop() (result BasicTypes, ok bool) {
+func (stack *Stack) Pop() (result interface{}, ok bool) {
 
 	if last := len(stack.values) - 1; last >= 0 {
 		result = stack.values[last]
@@ -40,7 +37,8 @@ func (stack *Stack[BasicTypes]) Pop() (result BasicTypes, ok bool) {
 	return
 }
 
-func (stack *Stack[BasicTypes]) PopOut() (all []BasicTypes) {
+// pop all items as an array
+func (stack *Stack) PopOut() (all []interface{}) {
 
 	value, ok := stack.Pop()
 
@@ -51,9 +49,14 @@ func (stack *Stack[BasicTypes]) PopOut() (all []BasicTypes) {
 }
 
 func main() {
-	stack := NewStack[complex128]()
+	stack := NewStack()
+	// push test
 	stack.Push(10)
-	stack.Push(20, 30, 4.5, -3+4i)
-
+	stack.Push(20, 30, 4.5, -3+4i, 23.65)
+	// pop test
+	if v, ok := stack.Pop(); ok {
+		fmt.Println(v)
+	}
+	// popout test
 	fmt.Println(stack.PopOut())
 }
