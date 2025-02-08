@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"stack"
+
+	stack "github.com/pya-h/gostack/stack"
 )
 
 func main() {
